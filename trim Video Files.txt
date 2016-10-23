@@ -1,0 +1,7 @@
+ffmpeg -ss 00:02:43.00 -i input.mp4 -t 120 -vcodec copy -acodec copy output.mp4
+
+//The -ss option tells FFmpeg to skip the first 2 minutes and 43 seconds of the input. The -t option tells FFmpeg to create an output that is 120 seconds long. My example shows two methods of declaring time: hours:minutes:seconds:milliseconds or just seconds, and -ss and -t can use either method.
+
+//Using -ss as in input option (before the -i) is usually faster than applying it as an output option (after -i filename) as it instructs FFmpeg to seek to that time and then decode, but it isn't always accurate (depending on your input format) so you may have to move -ss as an output option. As an output option this tells FFmpeg to decode everything until your desired time and then start encoding. This method can be much slower depending on how decoding intensive your input is, but is potentially frame accurate.
+
+//The -vcodec copy and -acodec copy options tell FFmpeg to simply copy the video and audio. This preserves the quality and is fast because there is no re-encoding.
